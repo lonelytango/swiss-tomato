@@ -14,7 +14,6 @@ struct ContentView: View {
     @State private var showingSettings = false
     
     var body: some View {
-        
         NavigationView {
             ZStack {
                 // Main content
@@ -54,7 +53,7 @@ struct ContentView: View {
                             }
                             .sheet(isPresented: $showingSettings) {
                                 SettingsView(workDuration: $pomodoroTimer.workDuration,
-                                            breakDuration: $pomodoroTimer.breakDuration)
+                                             breakDuration: $pomodoroTimer.breakDuration)
                             }
                         }
                         .padding()
@@ -79,7 +78,6 @@ struct ContentView: View {
     func applicationDidBecomeActive() {
         if pomodoroTimer.state == .running {
             UIApplication.shared.isIdleTimerDisabled = true
-                    
         }
     }
 }

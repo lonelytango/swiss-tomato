@@ -5,9 +5,9 @@
 //  Created by Zian Chen on 11/26/24.
 //
 
-import SwiftUI
 import AudioToolbox
 import Dispatch
+import SwiftUI
 
 // Timer states
 enum TimerState {
@@ -21,8 +21,8 @@ enum TimerState {
 class PomodoroTimer: ObservableObject {
     @Published var timeRemaining: Int
     @Published var state: TimerState = .initial
-    @Published var workDuration: Int = 25 * 60  // 25 minutes in seconds
-    @Published var breakDuration: Int = 5 * 60   // 5 minutes in seconds
+    @Published var workDuration: Int = 25 * 60 // 25 minutes in seconds
+    @Published var breakDuration: Int = 5 * 60 // 5 minutes in seconds
     private var timer: Timer?
     
     private var backgroundTimer: DispatchSourceTimer?
@@ -46,7 +46,7 @@ class PomodoroTimer: ObservableObject {
             self?.updateTimer()
         }
         
-        self.backgroundTimer = timer
+        backgroundTimer = timer
         timer.resume()
         
         // Request background execution

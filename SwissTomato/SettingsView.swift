@@ -11,7 +11,7 @@ struct SettingsView: View {
     @Binding var workDuration: Int
     @Binding var breakDuration: Int
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
         NavigationView {
             Form {
@@ -23,7 +23,7 @@ struct SettingsView: View {
                         }
                     }
                 }
-                
+
                 Section(header: Text("Break Duration")) {
                     Picker("Minutes", selection: $breakDuration) {
                         ForEach([5, 10, 15, 20], id: \.self) { minutes in
