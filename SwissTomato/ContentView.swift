@@ -14,43 +14,54 @@ struct ContentView: View {
     @State private var showingSettings = false
     
     var body: some View {
-        VStack(spacing: 30) {
-            Text(timeString(from: pomodoroTimer.timeRemaining))
-                .font(.system(size: 60, weight: .bold))
-                .monospacedDigit()
-            
-            Text(pomodoroTimer.statusText)
-                .font(.title2)
-                .foregroundColor(.secondary)
-            
-            HStack(spacing: 20) {
-                if pomodoroTimer.state == .running {
-                    Button(action: { pomodoroTimer.pauseTimer() }) {
-                        Image(systemName: "pause.circle.fill")
-                            .font(.system(size: 50))
-                    }
-                } else {
-                    Button(action: { pomodoroTimer.startTimer() }) {
-                        Image(systemName: "play.circle.fill")
-                            .font(.system(size: 50))
+        
+        NavigationView {
+            ZStack {
+                // Main content
+                VStack(spacing: 30) {
+                    ZStack {
+                        VStack(spacing: 30) {
+                            Text(timeString(from: pomodoroTimer.timeRemaining))
+                                .font(.system(size: 60, weight: .bold))
+                                .foregroundColor(.black)
+                                .monospacedDigit()
+                            
+                            Text(pomodoroTimer.statusText)
+                                .font(.title2)
+                                .foregroundColor(.black)
+                            
+                            HStack(spacing: 20) {
+                                if pomodoroTimer.state == .running {
+                                    Button(action: { pomodoroTimer.pauseTimer() }) {
+                                        Image(systemName: "pause.circle.fill")
+                                            .font(.system(size: 50))
+                                    }
+                                } else {
+                                    Button(action: { pomodoroTimer.startTimer() }) {
+                                        Image(systemName: "play.circle.fill")
+                                            .font(.system(size: 50))
+                                    }
+                                }
+                                
+                                Button(action: { pomodoroTimer.resetTimer() }) {
+                                    Image(systemName: "arrow.counterclockwise.circle.fill")
+                                        .font(.system(size: 50))
+                                }
+                            }
+                            
+                            Button("Settings") {
+                                showingSettings = true
+                            }
+                            .sheet(isPresented: $showingSettings) {
+                                SettingsView(workDuration: $pomodoroTimer.workDuration,
+                                            breakDuration: $pomodoroTimer.breakDuration)
+                            }
+                        }
+                        .padding()
                     }
                 }
-                
-                Button(action: { pomodoroTimer.resetTimer() }) {
-                    Image(systemName: "arrow.counterclockwise.circle.fill")
-                        .font(.system(size: 50))
-                }
-            }
-            
-            Button("Settings") {
-                showingSettings = true
-            }
-            .sheet(isPresented: $showingSettings) {
-                SettingsView(workDuration: $pomodoroTimer.workDuration,
-                            breakDuration: $pomodoroTimer.breakDuration)
             }
         }
-        .padding()
     }
     
     private func timeString(from seconds: Int) -> String {
